@@ -36,3 +36,6 @@ git clone https://github.com/yourusername/Banking-Data-Analysis.git
 cd Banking-Data-Analysis
 pip install -r requirements.txt
 python ui/main_dashboard.py
+
+## 🔗 Connect with Me
+- **LinkedIn:** [linkedin.com/in/ruby-gupta-0340a5172/](https://www.linkedin.com)

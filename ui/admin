@@ -1,0 +1,12 @@
+import tkinter as tk
+import users
+def show():
+    def view_users():
+        user.show()#open users file on button click
+    root=tk.Tk()
+    root.title("Admin Dashboard")
+    root.geometry("500x700")
+    tk.Label(root,text="Welcome to Admin Dashboard",bg="red",fg="white").pack(pady=10)
+    tk.Button(root,text="View/delete/edit users",bg="red",fg="white",commond=view_user).pack(pady=10)
+    root.mainloop()
+

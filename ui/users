@@ -1,1 +1,45 @@
+import tkinter as tk
+from tkinter import ttk,messagebox
+import pymysql
+def show():
+    conn=pymysql.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="bank"
+        )
+    cursor=conn.cursor()
+    def fetch_users():
+        for row in tree.get_children():
+            tree.delete(row)
+        cursor.execute("select * from users")
+        for user in cursor.fetchall():
+            tree.insert("",tk.END,values=user)
+    def delete_user():
+        selected=tree.focus()
+        if not selected:
+            messagebox.showwarning("select user","Please select")
+        else:
+            user_data=tree.item(selected)['values']
+            user_id=user_data[0]
+            cursor.execute("delete from users where user_id=%s",(user_id))
+            conn.commit()
+            fetch_users()
+    root=tk.Tk()
+    root.title(" View users")
+    root.geometry("800x700")
+    tk.Label(root,text="View edit /delete").pack(pady=10)
+    scrollbar=ttk.Scrollbar(root)
+    scrollbar.pack(side=tk.RIGHT,fill=tk.Y)
+    tree=ttk.Treeview(root,columns=("UserId","Username","Password"),show="headings",yscrollcommand=scrollbar.set)
+    tree.heading("UserId",text="Id")
+    tree.heading("Username",text="Username")
+    tree.heading("Password",text="Password")
+    tree.pack(fill=tk.BOTH,expand=True,padx=10,pady=10)
+    scrollbar.config(command=tree.yview)
+    fetch_users()
+    delete_btn=tk.Button(root,text="Delete User",bg="red",fg="white",command=delete_user)
+    delete_btn.pack(pady=10)
+    root.mainloop()
+show()
 
